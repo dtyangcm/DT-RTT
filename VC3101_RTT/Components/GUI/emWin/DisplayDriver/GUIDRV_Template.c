@@ -41,7 +41,7 @@ Purpose     : Template driver, should be used as starting point
 
 #include "bsp_lcd.h"
 
-#define	USE_QUICK	0
+#define	USE_QUICK	1
 
 #define LCD_NUM_COLORS (1L<<16)
 
@@ -235,7 +235,8 @@ static void _XorPixel(GUI_DEVICE * pDevice, int x, int y) {
 //	LCD_PIXELINDEX Index = LCD_GetPoint(x,y);	
 //	LCD_SetPoint(x, y, LCD_NUM_COLORS-1-Index);
 }
-
+void LCD_SYB_DrawHLine(int x1,int y1,int x2,int y2, int Index1);
+void LCD_SYB_DrawVLine(int x1,int y1,int x2,int y2, int Index1);
 /*
 ********************************************************************
 *
@@ -248,7 +249,8 @@ static void _DrawHLine  (GUI_DEVICE * pDevice, int x0, int y,  int x1) {
 
     ColorIndex = LCD__GetColorIndex();	
 #if USE_QUICK	
-	LCD_DrawLine(x0, y, x1, y, ColorIndex);
+	//LCD_DrawLine(x0, y, x1, y, ColorIndex);
+	LCD_SYB_DrawHLine(x0, y, x1 -x0 + 1, y, ColorIndex);
 #else	
 	if (ColorIndex) {
 		SetColor(1);
@@ -272,7 +274,8 @@ static void _DrawVLine  (GUI_DEVICE * pDevice, int x, int y0,  int y1) {
 	
     ColorIndex = LCD__GetColorIndex();
 #if USE_QUICK		
-	LCD_DrawLine(x, y0, x, y1, ColorIndex);
+	//LCD_DrawLine(x, y0, x, y1, ColorIndex);
+	LCD_SYB_DrawVLine(x, y0, x, y1 - y0 +1, ColorIndex);
 #else	
 	if (ColorIndex) {
 		SetColor(1);
@@ -280,7 +283,7 @@ static void _DrawVLine  (GUI_DEVICE * pDevice, int x, int y0,  int y1) {
 		SetColor(0);
 	}
 	Draw_LineToDispBuff(x, y0, 1, y1-y0+1);
-	     LCD_SendBuffDC(x, y0, 1, y1-y0+1);
+	LCD_SendBuffDC(x, y0, 1, y1-y0+1);
 #endif	
 }
 
@@ -297,7 +300,7 @@ static void _FillRect(GUI_DEVICE * pDevice, int x0, int y0, int x1, int y1)
 	for (; y0 <= y1; y0++) {
 		_DrawHLine(pDevice, x0, y0, x1);
 	} 
-	
+		//LCD_DrawRect(x0, y0, x1,y1,0);
 #else	
 	LCD_PIXELINDEX ColorIndex;
 	

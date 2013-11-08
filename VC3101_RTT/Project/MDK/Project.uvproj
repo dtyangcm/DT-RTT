@@ -12,13 +12,13 @@
       <ToolsetName>ARM-ADS</ToolsetName>
       <TargetOption>
         <TargetCommonOption>
-          <Device>STM32F407ZE</Device>
+          <Device>STM32F407VG</Device>
           <Vendor>STMicroelectronics</Vendor>
-          <Cpu>IRAM(0x20000000-0x2001FFFF) IRAM2(0x10000000-0x1000FFFF) IROM(0x8000000-0x807FFFF) CLOCK(25000000) CPUTYPE("Cortex-M4") FPU2</Cpu>
+          <Cpu>IRAM(0x20000000-0x2001FFFF) IRAM2(0x10000000-0x1000FFFF) IROM(0x8000000-0x80FFFFF) CLOCK(25000000) CPUTYPE("Cortex-M4") FPU2</Cpu>
           <FlashUtilSpec></FlashUtilSpec>
-          <StartupFile>"Startup\ST\STM32F4xx\startup_stm32f40xx.s" ("STM32F40xx Startup Code")</StartupFile>
-          <FlashDriverDll>UL2CM3(-O207 -S0 -C0 -FO7 -FD20000000 -FC800 -FN1 -FF0STM32F4xx_1024 -FS08000000 -FL080000)</FlashDriverDll>
-          <DeviceId>6107</DeviceId>
+          <StartupFile>"Startup\ST\STM32F4xx\startup_stm32f4xx.s" ("STM32F4xx Startup Code")</StartupFile>
+          <FlashDriverDll>UL2CM3(-O207 -S0 -C0 -FO7 -FD20000000 -FC800 -FN1 -FF0STM32F4xx_1024 -FS08000000 -FL0100000)</FlashDriverDll>
+          <DeviceId>6103</DeviceId>
           <RegisterFile>stm32f4xx.h</RegisterFile>
           <MemoryEnv></MemoryEnv>
           <Cmp></Cmp>
@@ -26,11 +26,10 @@
           <Linker></Linker>
           <OHString></OHString>
           <InfinionOptionDll></InfinionOptionDll>
-          <SLE66CMisc>-DSTM32F40XX</SLE66CMisc>
+          <SLE66CMisc></SLE66CMisc>
           <SLE66AMisc></SLE66AMisc>
           <SLE66LinkerMisc></SLE66LinkerMisc>
-          <SFDFile>SFD\ST\STM32F4xx\STM32F40x.sfr</SFDFile>
-          <bCustSvd>0</bCustSvd>
+          <SFDFile>SFD\ST\STM32F4xx\STM32F4xx.sfr</SFDFile>
           <UseEnv>0</UseEnv>
           <BinPath></BinPath>
           <IncludePath></IncludePath>
@@ -98,7 +97,6 @@
           <StopOnExitCode>3</StopOnExitCode>
           <CustomArgument></CustomArgument>
           <IncludeLibraryModules></IncludeLibraryModules>
-          <ComprImg>1</ComprImg>
         </CommonProperty>
         <DllOption>
           <SimDllName>SARMCM3.DLL</SimDllName>
@@ -138,7 +136,6 @@
             <RestoreMemoryDisplay>1</RestoreMemoryDisplay>
             <RestoreFunctions>0</RestoreFunctions>
             <RestoreToolbox>1</RestoreToolbox>
-            <RestoreTracepoints>1</RestoreTracepoints>
           </Target>
           <RunDebugAfterBuild>0</RunDebugAfterBuild>
           <TargetSelection>7</TargetSelection>
@@ -167,14 +164,9 @@
             <Capability>1</Capability>
             <DriverSelection>4099</DriverSelection>
           </Flash1>
-          <bUseTDR>1</bUseTDR>
           <Flash2>Segger\JL2CM3.dll</Flash2>
           <Flash3>"" ()</Flash3>
           <Flash4></Flash4>
-          <pFcarmOut></pFcarmOut>
-          <pFcarmGrp></pFcarmGrp>
-          <pFcArmRoot></pFcArmRoot>
-          <FcArmLst>0</FcArmLst>
         </Utilities>
         <TargetArmAds>
           <ArmAdsMisc>
@@ -279,7 +271,7 @@
               <IROM>
                 <Type>1</Type>
                 <StartAddress>0x8000000</StartAddress>
-                <Size>0x80000</Size>
+                <Size>0x100000</Size>
               </IROM>
               <XRAM>
                 <Type>0</Type>
@@ -303,8 +295,8 @@
               </OCR_RVCT3>
               <OCR_RVCT4>
                 <Type>1</Type>
-                <StartAddress>0x8020000</StartAddress>
-                <Size>0x80000</Size>
+                <StartAddress>0x8000000</StartAddress>
+                <Size>0x100000</Size>
               </OCR_RVCT4>
               <OCR_RVCT5>
                 <Type>1</Type>
@@ -352,12 +344,11 @@
             <Rwpi>0</Rwpi>
             <wLevel>0</wLevel>
             <uThumb>0</uThumb>
-            <uSurpInc>0</uSurpInc>
             <VariousControls>
               <MiscControls></MiscControls>
               <Define>STM32F4XX,  USE_STDPERIPH_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\App;..\..\Bsp;..\..\HardWareLib\Libraries\STM32F4xx_StdPeriph_Driver\inc;..\..\HardWareLib\Libraries\CMSIS\Device\ST\STM32F4xx\Include;..\..\Components\RTOS\include;..\..\Components\RTOS\libcpu\arm\common;..\..\Components\RTOS\libcpu\arm\cortex-m4;..\..\Components\finsh;..\..\Components\GUI\emWin\Config;..\..\Components\GUI\emWin\GUI_X;..\..\Components\GUI\emWin\Include</IncludePath>
+              <IncludePath>..\..\App;..\..\Bsp;..\..\HardWareLib\Libraries\STM32F4xx_StdPeriph_Driver\inc;..\..\HardWareLib\Libraries\CMSIS\Device\ST\STM32F4xx\Include;..\..\Components\RTOS\include;..\..\Components\RTOS\libcpu\arm\common;..\..\Components\RTOS\libcpu\arm\cortex-m4;..\..\Components\finsh;..\..\Components\GUI\emWin\Config;..\..\Components\GUI\emWin\GUI_X;..\..\Components\GUI\emWin\Include;..\..\Components\fatfs\src</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -368,7 +359,6 @@
             <SplitLS>0</SplitLS>
             <SwStkChk>0</SwStkChk>
             <NoWarn>0</NoWarn>
-            <uSurpInc>0</uSurpInc>
             <VariousControls>
               <MiscControls></MiscControls>
               <Define></Define>
@@ -444,14 +434,24 @@
               <FilePath>..\..\Bsp\bsp_led.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_lcd.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Bsp\bsp_lcd.c</FilePath>
-            </File>
-            <File>
               <FileName>bsp_key.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\Bsp\bsp_key.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_lcd_syb.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Bsp\bsp_lcd_syb.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_lcd_syb_gdi.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Bsp\bsp_lcd_syb_gdi.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_sdio_sd.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Bsp\bsp_sdio_sd.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -882,6 +882,96 @@
               <FileName>emWin_522_Keil460_M3_LE.lib</FileName>
               <FileType>4</FileType>
               <FilePath>..\..\Components\GUI\emWin\GUILib\emWin_522_Keil460_M3_LE.lib</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Form</GroupName>
+          <Files>
+            <File>
+              <FileName>Form_MainCodes.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\App\Form\Form_MainCodes.c</FilePath>
+            </File>
+            <File>
+              <FileName>Form_MainEvents.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\App\Form\Form_MainEvents.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>GUI_Font_HZ</GroupName>
+          <Files>
+            <File>
+              <FileName>GUI_Get_UTF8Data_FormFlash.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Components\GUI\emWin\FontHZ\GUI_Get_UTF8Data_FormFlash.c</FilePath>
+            </File>
+            <File>
+              <FileName>GUI_UC_EncodeNone.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Components\GUI\emWin\FontHZ\GUI_UC_EncodeNone.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>GUI_HANZI</GroupName>
+          <Files>
+            <File>
+              <FileName>GUI_Font12.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Components\GUI\emWin\HanZi\GUI_Font12.c</FilePath>
+            </File>
+            <File>
+              <FileName>GUI_Font16.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Components\GUI\emWin\HanZi\GUI_Font16.c</FilePath>
+            </File>
+            <File>
+              <FileName>GUI_Font24.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Components\GUI\emWin\HanZi\GUI_Font24.c</FilePath>
+            </File>
+            <File>
+              <FileName>GUI_Font48.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Components\GUI\emWin\HanZi\GUI_Font48.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>FatFS</GroupName>
+          <Files>
+            <File>
+              <FileName>diskio.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Components\fatfs\src\diskio.c</FilePath>
+            </File>
+            <File>
+              <FileName>ff.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Components\fatfs\src\ff.c</FilePath>
+            </File>
+            <File>
+              <FileName>diskio.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Components\fatfs\src\diskio.h</FilePath>
+            </File>
+            <File>
+              <FileName>ff.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Components\fatfs\src\ff.h</FilePath>
+            </File>
+            <File>
+              <FileName>ffconf.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Components\fatfs\src\ffconf.h</FilePath>
+            </File>
+            <File>
+              <FileName>integer.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Components\fatfs\src\integer.h</FilePath>
             </File>
           </Files>
         </Group>

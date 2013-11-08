@@ -2,7 +2,7 @@
 #include "bsp_lcd.h"
 
 
-
+   
 #define LCD_BYTES_X  			30 			//显示区宽度
 #define TEXT_HOME_ADDRESS 		0x0000 		//文本显示区首地址
 #define GRAPHIC_HOME_ADDRESS 	0x01E0 		//图形显示区首地址

@@ -87,8 +87,10 @@ static void _cbWindow1(WM_MESSAGE* pMsg) {
 			GUI_SetFont(&GUI_Font20_ASCII);
 			x = WM_GetWindowSizeX(pMsg->hWin);
 			y = WM_GetWindowSizeY(pMsg->hWin);
-			GUI_SetFont(&GUI_Font8_ASCII);
-			GUI_DispStringAt("wujialing", 1, y-8);  
+			//GUI_SetFont(&GUI_Font8_ASCII);
+			GUI_SetFont(&GUI_FontHZ12);
+		  GUI_DispStringAt("好的", 1, y-18);  
+			GUI_SetFont(&GUI_Font20_ASCII);
 			GUI_DispDecAt(g_iRunTime, x-60, y-8, 10);
 			break;
 		default:
@@ -138,13 +140,35 @@ rt_event_t 		event 	= RT_NULL;
 rt_mailbox_t	mailbox = RT_NULL;
 rt_mq_t			queue 	= RT_NULL;
 
+void LCD_Test_Line();
+#if 1
+void MainTask(void) ;
+static void rt_thread_entry_Gui(void* parameter)
+{
+	rt_uint32_t e;
+	GUI_Init();
+	GUI_SetBkColor(GUI_WHITE);
+	GUI_Clear(); 
+	
+	WIDGET_SetDefaultEffect(&WIDGET_Effect_Simple);
+	WM_SetCallback(WM_HBKWIN, _cbBkWindow);					/* Create windows */
+	
+	//_hWindow1 = WM_CreateWindow( 3,   33, 120, 70, WM_CF_SHOW, _cbWindow1, 0);
+	//WinDialog(_hWindow1);	/* 对话框显示在窗口1上 */
+	MainTask();
+	while(1)
+	{
+		GUI_Delay(5);
+	}
 
+}
+#else
 static void rt_thread_entry_Gui(void* parameter)
 {
 	rt_uint32_t e;
 	
 	GUI_Init();
-	GUI_SetBkColor(GUI_WHITE);
+	GUI_SetBkColor(GUI_BLACK);
 	GUI_Clear(); 
 	
 	WIDGET_SetDefaultEffect(&WIDGET_Effect_Simple);
@@ -152,19 +176,22 @@ static void rt_thread_entry_Gui(void* parameter)
 //	_ChangeInfoText("WM_CreateWindow()");
 	_hWindow1 = WM_CreateWindow( 3,   33, 120, 70, WM_CF_SHOW, _cbWindow1, 0);
 	_hWindow2 = WM_CreateWindow( 1,  112, 238, 15, WM_CF_SHOW, _cbWindow2, 0);
-	WinDialog(_hWindow1);	/* 对话框显示在窗口1上 */
+	//WinDialog(_hWindow1);	/* 对话框显示在窗口1上 */
     while (1) {
 //		rt_sem_take(sem, RT_WAITING_FOREVER);
 //		rt_event_recv(event, ((1 << 3)), RT_EVENT_FLAG_AND | RT_EVENT_FLAG_CLEAR, RT_WAITING_FOREVER, &e);
 //		rt_mb_recv(mailbox, (rt_uint32_t *)&e, RT_WAITING_FOREVER);	/* 变量中得到的是收到数据的地址 */
-		rt_mq_recv(queue, &e, 4, RT_WAITING_FOREVER);				/* 队列会直接取到数据，返回到给定变量中 */				
+
+			rt_mq_recv(queue, &e, 4, RT_WAITING_FOREVER);				/* 队列会直接取到数据，返回到给定变量中 */				
 		
-		WM_MoveTo(_hWindow1,  e%100,  33);
-		WM_InvalidateWindow(_hWindow2);		
+// 		WM_MoveTo(_hWindow1,  e%100,  33);
+// 		WM_InvalidateWindow(_hWindow2);		
 		GUI_Delay(5);
+			
+			//LCD_Test_Line();
     }
 }
-
+#endif
 void KeyPort_init(void);
 u32 Key_swap(void);
 
@@ -179,9 +206,10 @@ static void rt_thread_entry_Key(void* parameter)
 		rt_mq_send(queue, &g_iRunTime, 4);					/* 直接将变量中的数据放到队列中 */
 	
 		KeyValue = Key_swap();
+		GUI_SendKeyMsg(GUI_KEY_TAB,1);
 		LED_Tog();
 		g_iRunTime+=1;
-        rt_thread_delay(10);
+		rt_thread_delay(50);
     }
 }
 

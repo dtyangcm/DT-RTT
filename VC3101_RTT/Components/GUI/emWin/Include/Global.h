@@ -45,6 +45,11 @@ Purpose : Global types etc.
 #ifndef   U16
   #define U16 unsigned short
 #endif
+
+#ifndef   S16
+  #define S16  short
+#endif
+
 #ifndef   U32
   #define U32 unsigned long
 #endif

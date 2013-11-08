@@ -400,6 +400,16 @@ DECLARE_FONT(PROP_AA4_EXT);
   (GUI_GETCHARINFO *)0,             \
   GUI_ENCODE_SJIS
 
+//还有一个重要的问题就是需要在GUI_Typ.h文件里面添加如下的声明
+
+#define GUI_FONTTYPE_PROP_USER   \
+            GUIPROP_X_DispChar,            \
+            GUIPROP_X_GetCharDistX,        \
+            GUIMONO_GetFontInfo,           \
+            GUIMONO_IsInFont,              \
+           (GUI_GETCHARINFO *)0,          \
+           (tGUI_ENC_APIList*)0             
+
 #if defined(__cplusplus)
   }
 #endif

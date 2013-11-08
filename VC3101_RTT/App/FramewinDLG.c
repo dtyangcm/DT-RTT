@@ -74,7 +74,7 @@ static const GUI_WIDGET_CREATE_INFO _aDialogCreate[] = {
 **      call this function in _cbCallback --> WM_PAINT
 *****************************************************************/
 
-void PaintDialog(WM_MESSAGE * pMsg)
+static void PaintDialog(WM_MESSAGE * pMsg)
 {
 //    WM_HWIN hWin = pMsg->hWin;
 
@@ -89,7 +89,7 @@ void PaintDialog(WM_MESSAGE * pMsg)
 **      call this function in _cbCallback --> WM_INIT_DIALOG
 *****************************************************************/
 
-void InitDialog(WM_MESSAGE * pMsg)
+static void InitDialog(WM_MESSAGE * pMsg)
 {
     WM_HWIN hWin = pMsg->hWin;
     //
@@ -104,11 +104,11 @@ void InitDialog(WM_MESSAGE * pMsg)
     //
     //GUI_ID_BUTTON0
     //
-    BUTTON_SetFont(WM_GetDialogItem(hWin,GUI_ID_BUTTON0),&GUI_Font8_ASCII);
+    BUTTON_SetFont(WM_GetDialogItem(hWin,GUI_ID_BUTTON0),&GUI_Font13_ASCII);
     //
     //GUI_ID_BUTTON0
     //
-    BUTTON_SetFont(WM_GetDialogItem(hWin,GUI_ID_BUTTON0),&GUI_Font8_ASCII);
+    BUTTON_SetFont(WM_GetDialogItem(hWin,GUI_ID_BUTTON0),&GUI_Font13_ASCII);
     //
     //GUI_ID_MULTIEDIT0
     //
@@ -118,7 +118,7 @@ void InitDialog(WM_MESSAGE * pMsg)
     //
     //GUI_ID_DROPDOWN0
     //
-    DROPDOWN_SetBkColor(WM_GetDialogItem(hWin,GUI_ID_DROPDOWN0),0,0xffffff);
+    DROPDOWN_SetBkColor(WM_GetDialogItem(hWin,GUI_ID_DROPDOWN0),0,0x00FFFFFF);
 
 }
 
