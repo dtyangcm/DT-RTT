@@ -30,6 +30,8 @@
 #include "WM.h"
 #include "MULTIEDIT.h"
 
+#include "bsp_key.h"
+
 
 #define MSG_CHANGE_TEXT WM_USER+0
 
@@ -51,7 +53,7 @@ struct rt_thread thread_Gui;
 
 static char thread_Key_stack[1024];
 struct rt_thread thread_Key;
-u32 KeyValue;
+u32 uKeyCode;
 
 
 
@@ -112,7 +114,7 @@ static void _cbWindow2(WM_MESSAGE* pMsg) {
 			GUI_DispStringHCenterAt("Window 2", x / 2, y / 4);
 		
 			GUI_SetFont(GUI_FONT_8X15B_ASCII);
-			GUI_DispHexAt(KeyValue, x-60, 0, 5);
+			GUI_DispHexAt(uKeyCode, x-60, 0, 5);
 			break;
 		
 		case WM_SIZE:
@@ -185,31 +187,51 @@ static void rt_thread_entry_Gui(void* parameter)
 			rt_mq_recv(queue, &e, 4, RT_WAITING_FOREVER);				/* 队列会直接取到数据，返回到给定变量中 */				
 		
 // 		WM_MoveTo(_hWindow1,  e%100,  33);
-// 		WM_InvalidateWindow(_hWindow2);		
+		WM_InvalidateWindow(_hWindow2);		
 		GUI_Delay(5);
 			
 			//LCD_Test_Line();
     }
 }
 #endif
-void KeyPort_init(void);
-u32 Key_swap(void);
 
 static void rt_thread_entry_Key(void* parameter)
 {
-	KeyPort_init();
+		int gGetKey = 0;
+		int gGetKeyEnvent = 0;
 	
-    while(1) {
-//		rt_sem_release(sem);
-//		rt_event_send(event, (1 << 3));
-//		rt_mb_send(mailbox, (rt_uint32_t)&g_iRunTime);		/* 将变量地址发送过去 */
-		rt_mq_send(queue, &g_iRunTime, 4);					/* 直接将变量中的数据放到队列中 */
-	
-		KeyValue = Key_swap();
-		GUI_SendKeyMsg(GUI_KEY_TAB,1);
-		LED_Tog();
-		g_iRunTime+=1;
-		rt_thread_delay(50);
+		bsp_InitKey();
+    while(1) 
+		{
+			//		rt_sem_release(sem);
+			//		rt_event_send(event, (1 << 3));
+			//		rt_mb_send(mailbox, (rt_uint32_t)&g_iRunTime);		/* 将变量地址发送过去 */
+			rt_mq_send(queue, &g_iRunTime, 4);					/* 直接将变量中的数据放到队列中 */
+
+ 			bsp_KeyScan();
+			gGetKey = bsp_GetKey();
+			if(gGetKey )
+			{	
+				uKeyCode = gGetKey >> 8;
+				gGetKeyEnvent = gGetKey &	0xff	;
+				if(uKeyCode != KEY_NONE)
+				{
+						 
+						if(uKeyCode == KEY_UP)
+						{
+								GUI_SendKeyMsg(GUI_KEY_TAB,1);
+						}
+						else if(uKeyCode == KEY_DOWN)
+						{
+								GUI_SendKeyMsg(GUI_KEY_TAB,1);
+						}				
+						
+				}						
+			}
+			LED_Tog();
+			g_iRunTime+=1;
+			rt_thread_delay(2);
+			
     }
 }
 
